@@ -1,5 +1,6 @@
 import pkg_resources
 import os
+import sys
 
 
 class RequirementNotFoundError(Exception):
@@ -13,7 +14,7 @@ def collect_dependency_paths(package_name):
     deps = []
     try:
         dist = pkg_resources.get_distribution(package_name)
-    except ValueError:
+    except (pkg_resources.DistributionNotFound, ValueError):
         message = "Distribution '{}' not found.".format(package_name)
         raise RequirementNotFoundError(message)
 
