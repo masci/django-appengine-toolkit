@@ -20,7 +20,13 @@ def collect_dependency_paths(package_name):
 
     if dist.has_metadata('top_level.txt'):
         for line in dist.get_metadata('top_level.txt').split():
-            deps.append(os.path.join(dist.location, line))
+            # do not consider subpackages (e.g. the form 'package/subpackage')
+            if not os.path.split(line)[0]:
+                pkg = os.path.join(dist.location, line)
+                # handle single module packages
+                if not os.path.isdir(pkg) and os.path.exists(pkg+'.py'):
+                    pkg += '.py'
+                deps.append(pkg)
 
     for req in dist.requires():
         deps.extend(collect_dependency_paths(req.project_name))
