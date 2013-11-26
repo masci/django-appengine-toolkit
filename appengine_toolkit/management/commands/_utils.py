@@ -32,3 +32,16 @@ def collect_dependency_paths(package_name):
         deps.extend(collect_dependency_paths(req.project_name))
 
     return deps
+
+
+def parse_requirements_file(req_file):
+    """
+    TODO docstrings
+    """
+    lines = []
+    for line in req_file.readlines():
+        line = line.strip()
+        if not line or line.startswith('#'):
+            continue
+        lines.append(line)
+    return lines
