@@ -45,3 +45,18 @@ def parse_requirements_file(req_file):
             continue
         lines.append(line)
     return lines
+
+
+def make_simlinks(dest_dir, paths_list):
+    """
+    TODO docstrings
+    """
+    for path in paths_list:
+        dest = os.path.join(dest_dir, os.path.split(path)[-1])
+        if os.path.exists(dest):
+            if os.path.islink(dest):
+                os.remove(dest)
+            else:
+                sys.stderr('A file or dir named {} already exists, skipping...\n'.format(dest))
+                continue
+        os.symlink(path, dest)
