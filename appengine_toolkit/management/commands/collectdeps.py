@@ -5,7 +5,7 @@ from django.conf import settings
 
 from optparse import make_option
 
-from ._utils import collect_dependency_paths, RequirementNotFoundError
+from ._utils import collect_dependency_paths, parse_requirements_file, RequirementNotFoundError, make_simlinks
 
 
 class Command(BaseCommand):
@@ -23,14 +23,17 @@ class Command(BaseCommand):
     )
 
     def handle(self, *args, **options):
+        req_file_path = options.get('requirements_file')
+        if not len(args) and not req_file_path:
+            sys.stderr.write('Please provide at least a package name or a requirement file\n')
+            sys.exit(1)
+
         deps = []
 
-        req_file = options.get('requirements_file')
-        if req_file:
-            with open(req_file) as f:
-                for line in (x.strip() for x in f.readlines()):
-                    if not line or line.startswith('#'):
-                        continue
+        sys.stdout.write('Collecting dependencies...\n')
+        if req_file_path:
+            with open(req_file_path) as f:
+                for line in parse_requirements_file(f):
                     try:
                         deps.extend(collect_dependency_paths(line))
                     except RequirementNotFoundError as e:
@@ -41,5 +44,9 @@ class Command(BaseCommand):
 
         deps = set(deps)
 
-        for dep in deps:
-            sys.stderr.write(dep+'\n')
+        sys.stdout.write('{} dependencies found...\n'.format(len(deps)))
+
+        sys.stdout.write('Making symlinks...\n')
+        make_simlinks('.', deps)
+
+        sys.stdout.write('All done.\n')
