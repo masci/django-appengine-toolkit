@@ -57,6 +57,6 @@ def make_simlinks(dest_dir, paths_list):
             if os.path.islink(dest):
                 os.remove(dest)
             else:
-                sys.stderr('A file or dir named {} already exists, skipping...\n'.format(dest))
+                sys.stderr.write('A file or dir named {} already exists, skipping...\n'.format(dest))
                 continue
         os.symlink(path, dest)
