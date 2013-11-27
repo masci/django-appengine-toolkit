@@ -1,9 +1,11 @@
 import sys
+import os
 from optparse import make_option
 
 from django.core.management.base import BaseCommand, CommandError
 
 from ._utils import collect_dependency_paths, parse_requirements_file, RequirementNotFoundError, make_simlinks
+from ...settings import  appengine_toolkit_settings
 
 
 class Command(BaseCommand):
@@ -44,6 +46,8 @@ class Command(BaseCommand):
         sys.stdout.write('{} dependencies found...\n'.format(len(deps)))
 
         sys.stdout.write('Making symlinks...\n')
-        make_simlinks('.', deps)  # TODO get destination from settings
+        if not os.path.exists(appengine_toolkit_settings.DEPENDENCIES_ROOT):
+            os.mkdir(appengine_toolkit_settings.DEPENDENCIES_ROOT)
+        make_simlinks(appengine_toolkit_settings.DEPENDENCIES_ROOT, deps)
 
         sys.stdout.write('All done.\n')
