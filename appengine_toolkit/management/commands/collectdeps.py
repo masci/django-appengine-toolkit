@@ -25,8 +25,7 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         req_file_path = options.get('requirements_file')
         if not len(args) and not req_file_path:
-            sys.stderr.write('Please provide at least a package name or a requirement file\n')
-            sys.exit(1)
+            raise CommandError('Please provide at least a package name or a requirement file\n')
 
         deps = []
 
@@ -37,7 +36,7 @@ class Command(BaseCommand):
                     try:
                         deps.extend(collect_dependency_paths(line))
                     except RequirementNotFoundError as e:
-                        sys.stderr.write('Error processing requirement file: {}\n'.format(e))
+                        raise CommandError('Error processing requirement file: {}\n'.format(e))
 
         for package in args:
             deps.extend(collect_dependency_paths(package))
@@ -47,6 +46,6 @@ class Command(BaseCommand):
         sys.stdout.write('{} dependencies found...\n'.format(len(deps)))
 
         sys.stdout.write('Making symlinks...\n')
-        make_simlinks('.', deps)
+        make_simlinks('.', deps)  # TODO get destination from settings
 
         sys.stdout.write('All done.\n')
