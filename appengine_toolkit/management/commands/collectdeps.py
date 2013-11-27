@@ -1,8 +1,7 @@
 import sys
+from optparse import make_option
 
 from django.core.management.base import BaseCommand, CommandError
-
-from optparse import make_option
 
 from ._utils import collect_dependency_paths, parse_requirements_file, RequirementNotFoundError, make_simlinks
 
