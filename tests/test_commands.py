@@ -3,8 +3,6 @@ from django.core.management import call_command, CommandError
 
 import mock
 
-from appengine_toolkit.management.commands._utils import RequirementNotFoundError
-
 
 class TestCommands(TestCase):
     pass
@@ -35,4 +33,3 @@ class TestCollectDeps(TestCommands):
             mock_parse.return_value = ['foo']
             #mock_collect.return_value = ['foo']
             self.assertRaises(CommandError, call_command, 'collectdeps', requirements_file='foofile')
-        
