@@ -22,9 +22,17 @@ class Command(BaseCommand):
             dest='requirements_file',
             help='Collect dependencies for packages contained in requirement file'
         ),
+        make_option(
+            '--noinput',
+            action='store_false',
+            dest='interactive',
+            default=True,
+            help='Tells Django to NOT prompt the user for input of any kind.'
+        ),
     )
 
     def handle(self, *args, **options):
+        interactive = options.get('interactive', True)
         req_file_path = options.get('requirements_file')
         if not len(args) and not req_file_path:
             raise CommandError('Please provide at least a package name or a requirement file\n')
@@ -62,7 +70,7 @@ class Command(BaseCommand):
         appengine_config = os.path.join(app_root, 'appengine_config.py')
 
         write_file = True
-        if os.path.exists(appengine_config):
+        if interactive and os.path.exists(appengine_config):
             msg = ("\nA file called appengine_config.py already exist at "
                    "application root path.\nWould you like to overwrite it? (yes/no): ")
             confirm = input(msg)
