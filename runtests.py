@@ -25,7 +25,7 @@ try:
         SITE_ID=1,
         NOSE_ARGS=['-s'],
         APPENGINE_TOOLKIT={
-            'APP_YAML': os.path.join(here, 'tests'),
+            'APP_YAML': os.path.join(here, 'tests', 'foo.yaml'),
         }
     )
 
