@@ -61,6 +61,7 @@ class Command(BaseCommand):
 
         appengine_config = os.path.join(app_root, 'appengine_config.py')
 
+        write_file = True
         if os.path.exists(appengine_config):
             msg = ("\nA file called appengine_config.py already exist at "
                    "application root path.\nWould you like to overwrite it? (yes/no): ")
@@ -69,14 +70,17 @@ class Command(BaseCommand):
                 if confirm not in ('yes', 'no'):
                     confirm = input('Please enter either "yes" or "no": ')
                     continue
-                msg = get_config_code(appengine_toolkit_settings.DEPENDENCIES_ROOT)
-                if confirm == 'yes':
-                    with open(os.path.join(app_root, 'appengine_config.py'), 'w') as f:
-                        f.write(msg)
-                else:
-                    sys.stdout.write('Please ensure your appengine_config.py contains the following:\n\n')
-                    sys.stdout.write(msg)
-                    sys.stdout.write('\n')
+                if confirm == 'no':
+                    write_file = False
                 break
+
+        msg = get_config_code(appengine_toolkit_settings.DEPENDENCIES_ROOT)
+        if write_file:
+            with open(os.path.join(app_root, 'appengine_config.py'), 'w') as f:
+                f.write(msg)
+        else:
+            sys.stdout.write('Please ensure your appengine_config.py contains the following:\n\n')
+            sys.stdout.write(msg)
+            sys.stdout.write('\n')
 
         sys.stdout.write('All done.\n')
