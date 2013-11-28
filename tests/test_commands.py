@@ -1,11 +1,18 @@
 from django.test import TestCase
 from django.core.management import call_command, CommandError
 
+import os
+
 import mock
+
+from appengine_toolkit.settings import appengine_toolkit_settings
 
 
 class TestCommands(TestCase):
-    pass
+    def tearDown(self):
+        appengine_config = os.path.join(os.path.dirname(appengine_toolkit_settings.APP_YAML), 'appengine_config.py')
+        if os.path.exists(appengine_config):
+            os.remove(appengine_config)
 
 
 class TestCollectDeps(TestCommands):
@@ -31,3 +38,6 @@ class TestCollectDeps(TestCommands):
                 mock.patch('appengine_toolkit.management.commands.collectdeps.parse_requirements_file') as mock_parse:#, \
             mock_parse.return_value = ['foo']
             self.assertRaises(CommandError, call_command, 'collectdeps', requirements_file='foofile', interactive=False)
+
+    def test_call_create_deps_dir(self):
+        pass
