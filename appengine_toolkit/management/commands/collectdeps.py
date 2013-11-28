@@ -3,9 +3,11 @@ import os
 from optparse import make_option
 
 from django.core.management.base import BaseCommand, CommandError
+from django.utils.six.moves import input
 
-from ._utils import collect_dependency_paths, parse_requirements_file, RequirementNotFoundError, make_simlinks
-from ...settings import  appengine_toolkit_settings
+from ._utils import collect_dependency_paths, parse_requirements_file, make_simlinks, get_config_code
+from ._utils import RequirementNotFoundError
+from ...settings import appengine_toolkit_settings
 
 
 class Command(BaseCommand):
@@ -46,8 +48,35 @@ class Command(BaseCommand):
         sys.stdout.write('{} dependencies found...\n'.format(len(deps)))
 
         sys.stdout.write('Making symlinks...\n')
-        if not os.path.exists(appengine_toolkit_settings.DEPENDENCIES_ROOT):
-            os.mkdir(appengine_toolkit_settings.DEPENDENCIES_ROOT)
-        make_simlinks(appengine_toolkit_settings.DEPENDENCIES_ROOT, deps)
+
+        app_root = os.path.dirname(appengine_toolkit_settings.APP_YAML)
+        deps_root = os.path.join(app_root, appengine_toolkit_settings.DEPENDENCIES_ROOT)
+
+        if not os.path.exists(deps_root):
+            sys.stdout.write('Creating dependencies root folder...\n')
+            os.mkdir(deps_root)
+        make_simlinks(deps_root, deps)
+
+        sys.stdout.write('Writing config to appengine_config.py...\n')
+
+        appengine_config = os.path.join(app_root, 'appengine_config.py')
+
+        if os.path.exists(appengine_config):
+            msg = ("\nA file called appengine_config.py already exist at "
+                   "application root path.\nWould you like to overwrite it? (yes/no): ")
+            confirm = input(msg)
+            while 1:
+                if confirm not in ('yes', 'no'):
+                    confirm = input('Please enter either "yes" or "no": ')
+                    continue
+                msg = get_config_code(appengine_toolkit_settings.DEPENDENCIES_ROOT)
+                if confirm == 'yes':
+                    with open(os.path.join(app_root, 'appengine_config.py'), 'w') as f:
+                        f.write(msg)
+                else:
+                    sys.stdout.write('Please ensure your appengine_config.py contains the following:\n\n')
+                    sys.stdout.write(msg)
+                    sys.stdout.write('\n')
+                break
 
         sys.stdout.write('All done.\n')
