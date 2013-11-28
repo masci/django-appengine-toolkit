@@ -3,7 +3,7 @@ Settings are all namespaced in the APPENGINE_TOOLKIT setting.
 For example your project's `settings.py` file might look like this::
 
     APPENGINE_TOOLKIT = {
-        'DEPENDENCIES_ROOT': 'libs',
+        'DEPENDENCIES_ROOT_NAME': 'libs',
     }
 
 This module provides the `appengine_toolkit_settings` object, that is used to
@@ -18,12 +18,14 @@ from django.conf import settings
 USER_SETTINGS = getattr(settings, 'APPENGINE_TOOLKIT', None)
 
 DEFAULTS = {
+    'APP_YAML': None,
     'DEPENDENCIES_ROOT': 'libs',
 }
 
 # List of settings that cannot be empty
 MANDATORY = (
-    'DEPENDENCIES_ROOT',
+    # absolute path to application file
+    'APP_YAML',
 )
 
 
