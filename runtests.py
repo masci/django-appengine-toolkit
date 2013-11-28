@@ -1,5 +1,8 @@
 import sys
+import os
 from optparse import OptionParser
+
+here = os.path.dirname(os.path.abspath(__file__))
 
 try:
     from django.conf import settings
@@ -21,6 +24,9 @@ try:
         ],
         SITE_ID=1,
         NOSE_ARGS=['-s'],
+        APPENGINE_TOOLKIT={
+            'APP_YAML': os.path.join(here, 'tests'),
+        }
     )
 
     from django_nose import NoseTestSuiteRunner
