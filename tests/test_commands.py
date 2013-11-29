@@ -40,4 +40,9 @@ class TestCollectDeps(TestCommands):
             self.assertRaises(CommandError, call_command, 'collectdeps', requirements_file='foofile', interactive=False)
 
     def test_call_create_deps_dir(self):
-        pass
+        with mock.patch('appengine_toolkit.management.commands.collectdeps.os.path.exists') as mock_exists,\
+            mock.patch('appengine_toolkit.management.commands.collectdeps.os.mkdir') as mock_mkdir,\
+            mock.patch('appengine_toolkit.management.commands.collectdeps.collect_dependency_paths'):
+            mock_exists.return_value = False
+            call_command('collectdeps', 'foo', interactive=False)
+            self.assertTrue('/libs' in mock_mkdir.call_args[0][0])
