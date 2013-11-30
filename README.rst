@@ -77,5 +77,3 @@ code needed to configure the environment. If you need to customize the module
 ``appengine_config`` tell the command to not overwrite it - the command will then
 output the code you need to paste inside the module to complete the configuration
 process
-
-.. :changelog
