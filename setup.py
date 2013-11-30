@@ -24,7 +24,7 @@ readme = open('README.rst').read()
 history = open('HISTORY.rst').read().replace('.. :changelog:', '')
 
 setup(
-    name='appengine-toolkit',
+    name='django-appengine-toolkit',
     version=version,
     description='None',
     long_description=readme + '\n\n' + history,
