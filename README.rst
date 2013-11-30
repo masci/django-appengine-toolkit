@@ -48,7 +48,7 @@ from the DATABASE_URL enviroment var::
         'default': appengine_toolkit.config(),
     }
 
-You can set DATABASE_URL directly in your `app.yaml` file::
+You can set DATABASE_URL directly in your ``app.yaml`` file::
 
     env_variables:
       DJANGO_SETTINGS_MODULE: 'myapp.settings'
@@ -63,18 +63,18 @@ file, specifying the full path to your app.yaml file::
     }
 
 
-...then run the command `collectdeps` specifying the requirement file containing
+...then run the command ``collectdeps`` specifying the requirement file containing
 the list of packages needed by your project to run::
 
     python manage.py collectdeps -r my_requirements.txt
 
-a folder named `libs` will be created on your application root (i.e. the same folder
+a folder named ``libs`` will be created on your application root (i.e. the same folder
 where the YAML file resides) containing symlinks needed by App Engine to include
 dependencies in the production runtime enviroment.
 
-A file `appengine_config.py` will be created in the same folder and will contain
+A file ``appengine_config.py`` will be created in the same folder and will contain
 code needed to configure the environment. If you need to customize the module
-`appengine_config` tell the command to not overwrite it - the command will then
+``appengine_config`` tell the command to not overwrite it - the command will then
 output the code you need to paste inside the module to complete the configuration
 process
 
