@@ -1,19 +1,26 @@
-.. complexity documentation master file, created by
-   sphinx-quickstart on Tue Jul  9 22:26:36 2013.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
-
 Welcome to appengine-toolkit's documentation!
 =================================================================
+
+Appengine Toolkit pimps Django with some utilities which help deploying
+projects on Google App Engine with Google Cloud SQL as data backend.
+
+Main features:
+  * collects project dependencies symlinking needed modules and packages and configuring App Engine environment
+  * configures ``DATABASE`` setting parsing connection strings similar to those on Heroku
 
 Contents:
 
 .. toctree::
    :maxdepth: 2
 
-   readme
    installation
    usage
+
+Extras:
+
+.. toctree::
+   :maxdepth: 1
+
    contributing
    authors
    history
