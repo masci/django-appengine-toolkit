@@ -2,11 +2,13 @@
 Installation
 ============
 
-At the command line::
+Install appengine-toolkit::
 
-    $ easy_install django-appengine-toolkit
+    pip install django-appengine-toolkit
 
-Or, if you have virtualenvwrapper installed::
+Add it to the installed apps::
 
-    $ mkvirtualenv django-appengine-toolkit
-    $ pip install django-appengine-toolkit
+    INSTALLED_APPS = (
+        # ...
+        'appengine_toolkit',
+    )
