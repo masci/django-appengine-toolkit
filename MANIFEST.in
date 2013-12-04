@@ -3,4 +3,4 @@ include CONTRIBUTING.rst
 include HISTORY.rst
 include LICENSE
 include README.rst
-recursive-include appengine_toolkit *.html *.png *.gif *js *jpg *jpeg *svg *py
+recursive-include appengine_toolkit *.html *js *py
