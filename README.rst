@@ -24,7 +24,7 @@ Features
 Documentation
 -------------
 
-The full documentation is at http://django-appengine-toolkit.rtfd.org.
+The full documentation is at http://django-app-engine-toolkit.rtfd.org.
 
 Quickstart
 ----------
