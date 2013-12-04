@@ -26,7 +26,7 @@ history = open('HISTORY.rst').read().replace('.. :changelog:', '')
 setup(
     name='django-appengine-toolkit',
     version=version,
-    description='None',
+    description='Deploy Django projects on Google App Engine with ease',
     long_description=readme + '\n\n' + history,
     author='Massimiliano Pippi',
     author_email='mpippi@gmail.com',
