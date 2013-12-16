@@ -20,6 +20,14 @@ USER_SETTINGS = getattr(settings, 'APPENGINE_TOOLKIT', None)
 DEFAULTS = {
     'APP_YAML': None,
     'DEPENDENCIES_ROOT': 'libs',
+    'CLIENT_TYPE': None,
+    'SCOPE': None,
+    'REDIRECT_URI': None,
+    'AUTH_URI': None,
+    'TOKEN_URI': None,
+    'REVOKE_URI': None,
+    'CLIENT_ID': None,
+    'CLIENT_SECRET': None,
 }
 
 # List of settings that cannot be empty
