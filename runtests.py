@@ -26,6 +26,7 @@ try:
         NOSE_ARGS=['-s'],
         APPENGINE_TOOLKIT={
             'APP_YAML': os.path.join(here, 'tests', 'foo.yaml'),
+            'BUCKET_NAME': 'test_bucket',
         }
     )
 
