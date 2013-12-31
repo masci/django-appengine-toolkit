@@ -26,12 +26,15 @@ class GoogleCloudStorage(Storage):
     def _save(self, name, content):
         filename = os.path.join(self._bucket, name)
         content_t = mimetypes.guess_type(filename)[0]
-        with cloudstorage.open(filename, 'w', content_type=content_t, options={'x-goog-acl': 'public-read'}) as handle:
-            handle.write(content.read())
+        with cloudstorage.open(filename, 'w', content_type=content_t, options={'x-goog-acl': 'public-read'}) as f:
+            f.write(content.read())
         return os.path.join(self._bucket, filename)
 
     def delete(self, name):
-        pass
+        try:
+            cloudstorage.delete(os.path.join(self._bucket, name))
+        except cloudstorage.NotFoundError:
+            pass
 
     def exists(self, name):
         try:
