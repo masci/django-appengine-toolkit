@@ -1,5 +1,5 @@
 from django.core.files.storage import Storage
-from django.core.exceptions import ImproperlyConfigured
+from django.core.exceptions import ImproperlyConfigured, SuspiciousOperation
 from django.utils import timezone
 
 import os
@@ -23,14 +23,20 @@ class GoogleCloudStorage(Storage):
             raise ImproperlyConfigured("Please specify a valid value for APPENGINE_TOOLKIT['BUCKET_NAME'] setting")
         self._bucket = '/' + appengine_toolkit_settings.BUCKET_NAME
 
-    def _realpath(self, name):
-        return os.path.join(self._bucket, name) if name else self._bucket
+    def path(self, name):
+        """
+        Returns the full path to the file, including leading '/' and bucket name.
+        Access to the bucket root are not allowed.
+        """
+        if not name:
+            raise SuspiciousOperation("Attempted access to '%s' denied." % name)
+        return os.path.join(self._bucket, name)
 
     def _open(self, name, mode='rb'):
-        return cloudstorage.open(os.path.join(self._bucket, name), 'r')
+        return cloudstorage.open(self.path(name), 'r')
 
     def _save(self, name, content):
-        realname = self._realpath(name)
+        realname = self.path(name)
         content_t = mimetypes.guess_type(realname)[0]
         with cloudstorage.open(realname, 'w', content_type=content_t, options={'x-goog-acl': 'public-read'}) as f:
             f.write(content.read())
@@ -38,22 +44,22 @@ class GoogleCloudStorage(Storage):
 
     def delete(self, name):
         try:
-            cloudstorage.delete(self._realpath(name))
+            cloudstorage.delete(self.path(name))
         except cloudstorage.NotFoundError:
             pass
 
     def exists(self, name):
         try:
-            cloudstorage.stat(self._realpath(name))
+            cloudstorage.stat(self.path(name))
             return True
         except cloudstorage.NotFoundError:
             return False
 
     def listdir(self, path):
-        return [], [obj.filename for obj in cloudstorage.listbucket(self._realpath(path))]
+        return [], [obj.filename for obj in cloudstorage.listbucket(path)]
 
     def size(self, name):
-        filestat = cloudstorage.stat(self._realpath(name))
+        filestat = cloudstorage.stat(self.path(name))
         return filestat.st_size
 
     def url(self, name):
@@ -61,5 +67,6 @@ class GoogleCloudStorage(Storage):
         return images.get_serving_url(key)
 
     def created_time(self, name):
-        filestat = cloudstorage.stat(self._realpath(name))
-        return timezone.datetime.fromtimestamp(filestat.st_ctime)
+        filestat = cloudstorage.stat(self.path(name))
+        creation_date = timezone.datetime.fromtimestamp(filestat.st_ctime)
+        return timezone.make_aware(creation_date, timezone.get_current_timezone())
