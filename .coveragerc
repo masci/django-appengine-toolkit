@@ -1,3 +1,2 @@
 [run]
 source = appengine_toolkit
-omit = libs/*
