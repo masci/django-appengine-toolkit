@@ -1,3 +1,2 @@
 django<1.6 # this is due to AppEngine
-
-# Additional requirements go here
+-e svn+http://appengine-gcs-client.googlecode.com/svn/trunk/python/src#egg=GoogleAppEngineCloudStorageClient

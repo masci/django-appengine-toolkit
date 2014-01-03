@@ -36,6 +36,11 @@ setup(
     ],
     include_package_data=True,
     install_requires=[
+        'django<1.6',
+        'GoogleAppEngineCloudStorageClient==trunk',
+    ],
+    dependency_links=[
+        "svn+http://appengine-gcs-client.googlecode.com/svn/trunk/python/src##egg=GoogleAppEngineCloudStorageClient-trunk"
     ],
     license="BSD",
     zip_safe=False,
