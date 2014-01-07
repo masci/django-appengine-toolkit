@@ -55,8 +55,8 @@ class GoogleCloudStorage(Storage):
         except cloudstorage.NotFoundError:
             return False
 
-    def listdir(self, path):
-        return [], [obj.filename for obj in cloudstorage.listbucket(path)]
+    def listdir(self, name):
+        return [], [obj.filename for obj in cloudstorage.listbucket(self.path(name))]
 
     def size(self, name):
         filestat = cloudstorage.stat(self.path(name))
