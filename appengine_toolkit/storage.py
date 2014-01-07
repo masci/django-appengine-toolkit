@@ -70,3 +70,6 @@ class GoogleCloudStorage(Storage):
         filestat = cloudstorage.stat(self.path(name))
         creation_date = timezone.datetime.fromtimestamp(filestat.st_ctime)
         return timezone.make_aware(creation_date, timezone.get_current_timezone())
+
+    def isdir(self, name):
+        return True
