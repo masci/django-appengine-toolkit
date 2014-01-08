@@ -49,7 +49,6 @@ try:
             'BUCKET_NAME': 'test_bucket',
         },
         DEFAULT_FILE_STORAGE='appengine_toolkit.storage.GoogleCloudStorage',
-        NOSE_PLUGINS=['nosegae.NoseGAE'],
     )
 
     from django_nose import NoseTestSuiteRunner
