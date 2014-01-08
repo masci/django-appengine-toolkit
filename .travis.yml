@@ -5,6 +5,10 @@ language: python
 python:
   - "2.7"
 
+before_script:
+  - wget https://googleappengine.googlecode.com/files/google_appengine_1.8.8.zip -nv
+  - unzip -q google_appengine_1.8.8.zip
+
 # command to install dependencies, e.g. pip install -r requirements.txt --use-mirrors
 install: pip install -r requirements-test.txt
 
