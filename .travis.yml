@@ -13,4 +13,6 @@ before_script:
 install: pip install -r requirements-test.txt
 
 # command to run tests, e.g. python setup.py test
-script: python runtests.py
+script:
+  - export PYTHONPATH=$PYTHONPATH:google_appengine
+  - python runtests.py
