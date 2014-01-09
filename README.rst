@@ -22,6 +22,7 @@ Features
 
 * collects project dependencies symlinking needed modules and packages and configuring App Engine environment
 * configures DATABASE setting parsing connection strings similar to those on Heroku
+* provides a custom storage for Google Cloud Storage
 
 Documentation
 -------------
@@ -79,3 +80,12 @@ code needed to configure the environment. If you need to customize the module
 ``appengine_config`` tell the command to not overwrite it - the command will then
 output the code you need to paste inside the module to complete the configuration
 process
+
+Need to store your media files on Google Cloud Storage? Just add this to your settings::
+
+    APPENGINE_TOOLKIT = {
+        # ...,
+        'BUCKET_NAME': 'your-bucket-name',
+    }
+    DEFAULT_FILE_STORAGE = 'appengine_toolkit.storage.GoogleCloudStorage'
+
