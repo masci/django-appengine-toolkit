@@ -11,6 +11,8 @@ Django Appengine Toolkit
 .. image:: https://pypip.in/d/django-appengine-toolkit/badge.png
         :target: https://crate.io/packages/django-appengine-toolkit?version=latest
 
+.. image:: https://coveralls.io/repos/evonove/django-appengine-toolkit/badge.png
+        :target: https://coveralls.io/r/masci/django-appengine-toolkit
 
 Appengine Toolkit pimps Django with some utilities which help deploying
 projects on Google App Engine with Google Cloud SQL as data backend.
