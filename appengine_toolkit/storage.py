@@ -17,6 +17,10 @@ class GoogleCloudStorage(Storage):
 
     """
     def __init__(self):
+        """
+        __init__ must be callable without arguments.
+        Check for bucket name settings upon initialization
+        """
         try:
             cloudstorage.validate_bucket_name(appengine_toolkit_settings.BUCKET_NAME)
         except ValueError:
@@ -72,4 +76,8 @@ class GoogleCloudStorage(Storage):
         return timezone.make_aware(creation_date, timezone.get_current_timezone())
 
     def isdir(self, name):
+        """
+        TODO perform actual check, at the moment only happened Mezzanine calls this
+        method
+        """
         return True
