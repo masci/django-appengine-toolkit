@@ -14,7 +14,7 @@ Django Appengine Toolkit
 .. image:: https://coveralls.io/repos/evonove/django-appengine-toolkit/badge.png
         :target: https://coveralls.io/r/masci/django-appengine-toolkit
 
-Appengine Toolkit pimps Django with some utilities which help deploying
+Appengine Toolkit pimps Django with some utilities that help deploying
 projects on Google App Engine with Google Cloud SQL as data backend.
 
 Features
@@ -43,8 +43,8 @@ Add it to the installed apps::
         'appengine_toolkit',
     )
 
-To automatically configure database settings reading connection string
-from the DATABASE_URL enviroment var::
+To automatically configure database settings by parsing connection string
+contained in DATABASE_URL enviroment var::
 
     import appengine_toolkit
     DATABASES = {
