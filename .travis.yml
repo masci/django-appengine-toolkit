@@ -10,9 +10,13 @@ before_script:
   - unzip -q google_appengine_1.8.8.zip
 
 # command to install dependencies, e.g. pip install -r requirements.txt --use-mirrors
-install: pip install -r requirements-test.txt
+install:
+  - pip install -r requirements-test.txt
+  - pip install coveralls
 
 # command to run tests, e.g. python setup.py test
 script:
   - export PYTHONPATH=$PYTHONPATH:google_appengine
-  - python runtests.py
+  - coverage run runtests.py
+
+after_success: coveralls
