@@ -29,7 +29,7 @@ Documentation
 
 The full documentation is at http://django-appengine-toolkit.rtfd.org.
 
-A tutorial was published on `Google Developers Blog <http://googledevelopers.blogspot.it/2014/02/create-blog-on-app-engine-with-django.htm>`_
+A tutorial was published on `Google Developers Blog <http://googledevelopers.blogspot.it/2014/02/create-blog-on-app-engine-with-django.html>`_
 
 Quickstart
 ----------
