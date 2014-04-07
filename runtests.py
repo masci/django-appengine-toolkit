@@ -72,11 +72,11 @@ def run_tests(*test_args):
 if __name__ == '__main__':
     sys.path.extend(GAE_LIBRARY_PATHS)
 
-    from google.appengine.tools import dev_appserver
+    from google.appengine.tools import old_dev_appserver
     from google.appengine.tools.dev_appserver_main import ParseArguments
 
     option_dict = ParseArguments(sys.argv)[1]
-    dev_appserver.SetupStubs('local', **option_dict)
+    old_dev_appserver.SetupStubs('local', **option_dict)
 
     parser = OptionParser()
     (options, args) = parser.parse_args()
