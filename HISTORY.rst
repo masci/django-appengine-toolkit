@@ -6,6 +6,12 @@ History
 0.2.0 (2014-01-09)
 ++++++++++++++++++
 
+* Fixed setup requirements for GCS library
+* App Engine SDK 1.9 compatibility
+
+0.2.0 (2014-01-09)
+++++++++++++++++++
+
 * Added support for Google Cloud Storage
 
 0.1.2 (2013-12-04)
