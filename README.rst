@@ -31,6 +31,8 @@ The full documentation is at http://django-appengine-toolkit.rtfd.org.
 
 A tutorial was published on `Google Developers Blog <http://googledevelopers.blogspot.it/2014/02/create-blog-on-app-engine-with-django.html>`_
 
+Another `how-to upload to cloud storage <https://github.com/masci/django_cloudstorage_example>`_
+
 AppEngine SDK version supported: 1.9.2
 
 Quickstart
