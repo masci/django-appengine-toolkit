@@ -33,7 +33,7 @@ A tutorial was published on `Google Developers Blog <http://googledevelopers.blo
 
 Another `how-to upload to cloud storage <https://github.com/masci/django_cloudstorage_example>`_
 
-AppEngine SDK version supported: 1.9.2
+AppEngine SDK version supported: 1.9.4
 
 Quickstart
 ----------
