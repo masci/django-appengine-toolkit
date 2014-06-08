@@ -64,8 +64,8 @@ You can set DATABASE_URL directly in your ``app.yaml`` file::
       DATABASE_URL: 'mysql://root@project_id:instance_id/database_name'
 
 
-To collect project dependencies, first configure Appengine Toolkit in your settings
-file, specifying the full path to your app.yaml file::
+To collect project dependencies, first configure Appengine Toolkit specifying the full 
+path pointing to the app.yaml file in your `settings.py` module::
 
     APPENGINE_TOOLKIT = {
         'APP_YAML': os.path.join(BASE_DIR, '../../', 'app.yaml'),
